@@ -1,8 +1,18 @@
 <article class="review-item">
+  <% can_author_reply = user_signed_in? && current_user.author_profile.present? && book.authors.exists?(id: current_user.author_profile.id) %>
+
   <p class="review-meta">
     <span class="info-label"><%= review.user.email %></span>
     <span class="meta-text">• <%= review.created_at.strftime("%Y-%m-%d %H:%M") %></span>
   </p>
   <p class="review-rating">Rating: <%= review.rating %> / 5</p>
   <p class="review-body"><%= review.review %></p>
+
+  <div id="<%= dom_id(review, :replies) %>">
+    <%= render partial: "review_replies/reply", collection: review.review_replies.order(created_at: :asc), as: :reply %>
+  </div>
+
+  <% if can_author_reply %>
+    <%= render "review_replies/form", book: book, review: review, reply: ReviewReply.new %>
+  <% end %>
 </article>

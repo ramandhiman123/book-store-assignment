@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :authors, only: %i[new create]
 
   resources :books, only: %i[index show] do
-    resources :reviews, only: :create
+    resources :reviews, only: :create do
+      resources :replies, only: :create, module: :reviews
+    end
   end
 
   scope module: :creator, path: :author, as: :author do

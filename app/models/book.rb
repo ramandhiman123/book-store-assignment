@@ -22,7 +22,7 @@ class Book < ApplicationRecord
   }
 
   scope :with_show_includes, lambda {
-    includes(:category, :authors, :tags, cover_photo_attachment: :blob)
+    includes(:category, :authors, :tags, cover_photo_attachment: :blob, reviews: [:user, { review_replies: { author: :user } }])
   }
 
   def average_rating

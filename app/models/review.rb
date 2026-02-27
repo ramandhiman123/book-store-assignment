@@ -1,6 +1,7 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :book
+  has_many :review_replies, dependent: :destroy
 
   after_create_commit :broadcast_live_updates
 
@@ -20,7 +21,7 @@ class Review < ApplicationRecord
       book,
       target: "reviews",
       partial: "reviews/review",
-      locals: { review: self }
+      locals: { review: self, book: book }
     )
 
     broadcast_replace_to(
