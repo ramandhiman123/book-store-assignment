@@ -1,0 +1,14 @@
+<% return unless resource.respond_to?(:errors) && resource.errors.any? %>
+
+<div class="flash alert">
+  <% if local_assigns[:title].present? %>
+    <p class="info-label"><%= title %></p>
+  <% else %>
+    <p class="info-label">Please fix the following:</p>
+  <% end %>
+  <ul class="list-clean">
+    <% resource.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>

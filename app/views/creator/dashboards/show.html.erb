@@ -1,0 +1,25 @@
+<% content_for :title, "Author Dashboard" %>
+
+<section class="panel form-card form-card-lg">
+  <h2 class="section-title">Author Dashboard</h2>
+  <p class="meta-text">Welcome, <%= @author.name %></p>
+
+  <div class="dashboard-actions">
+    <%= link_to "Add Book", new_author_book_path, class: "btn" %>
+    <%= link_to "Add Category", new_author_category_path, class: "btn btn-secondary" %>
+  </div>
+
+  <h3 class="section-title sub-title-sm">Your recent books</h3>
+  <% if @books.any? %>
+    <ul class="list-clean">
+      <% @books.each do |book| %>
+        <li>
+          <%= link_to book.title, book_path(book) %>
+          <span class="meta-text">(<%= book.category.name %>)</span>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="meta-text">No books yet.</p>
+  <% end %>
+</section>

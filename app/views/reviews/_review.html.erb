@@ -1,0 +1,8 @@
+<article class="review-item">
+  <p class="review-meta">
+    <span class="info-label"><%= review.user.email %></span>
+    <span class="meta-text">• <%= review.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+  </p>
+  <p class="review-rating">Rating: <%= review.rating %> / 5</p>
+  <p class="review-body"><%= review.review %></p>
+</article>

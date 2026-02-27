@@ -1,0 +1,74 @@
+<% content_for :title, "Books" %>
+
+<section>
+  <div class="page-hero">
+    <div>
+      <h2 class="page-title">Book Catalog</h2>
+      <p class="page-subtitle">Browse, filter, and discover titles across categories and tags.</p>
+    </div>
+
+    <div class="panel filter-panel">
+      <%= form_with url: books_path, method: :get, local: true, class: "filter-form" do %>
+        <div class="field-group">
+          <%= label_tag :category_id, "Category" %>
+          <%= select_tag :category_id, options_for_select([["All", ""]] + @categories.map { |c| [c.name, c.id] }, @category_id) %>
+        </div>
+
+        <div class="field-group">
+          <%= label_tag :tag, "Tag" %>
+          <%= text_field_tag :tag, @tag, placeholder: "e.g. fantasy" %>
+        </div>
+
+        <div class="field-group">
+          <%= label_tag :per_page, "Per page" %>
+          <%= number_field_tag :per_page, @per_page, in: 1..50 %>
+        </div>
+
+        <div>
+          <%= submit_tag "Apply", class: "btn" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="books-grid">
+    <% @books.each do |book| %>
+      <article class="book-card">
+        <div class="book-card-cover">
+          <% if book.cover_photo_available? %>
+            <%= image_tag book.cover_photo, alt: book.title %>
+          <% else %>
+            <span class="empty-cover">No cover</span>
+          <% end %>
+        </div>
+
+        <div class="book-card-body">
+          <h3 class="book-title"><%= link_to book.title, book_path(book) %></h3>
+          <p class="meta-text"><%= book.category&.name %></p>
+
+          <p class="description-text"><%= truncate(book.description.to_s, length: 140) %></p>
+
+          <p class="description-text">
+            <span class="info-label">Authors:</span>
+            <%= book.authors.map(&:name).join(", ").presence || "Unknown" %>
+          </p>
+
+          <p class="description-text">
+            <span class="info-label">Tags:</span>
+            <% if book.tags.any? %>
+              <% book.tags.each do |tag| %>
+                <%= link_to tag.name, books_path(tag: tag.name), class: "tag-pill" %>
+              <% end %>
+            <% else %>
+              <span class="meta-text">None</span>
+            <% end %>
+          </p>
+
+          <p class="price"><%= number_to_currency(book.price) %></p>
+        </div>
+      </article>
+    <% end %>
+  </div>
+
+  <%= render "pagination", page: @page, total_pages: @total_pages, per_page: @per_page %>
+</section>

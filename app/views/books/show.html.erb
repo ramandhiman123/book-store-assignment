@@ -1,0 +1,60 @@
+<% content_for :title, @book.title %>
+
+<%= turbo_stream_from @book %>
+
+<section class="book-show">
+  <article class="panel">
+    <div class="book-hero">
+      <div class="book-cover-box">
+        <% if @book.cover_photo_available? %>
+          <%= image_tag @book.cover_photo, alt: @book.title %>
+        <% else %>
+          <span class="empty-cover">No cover</span>
+        <% end %>
+      </div>
+
+      <div>
+        <h2 class="page-title book-title-large"><%= @book.title %></h2>
+        <p class="meta-text"><span class="info-label">Category:</span> <%= @book.category&.name %></p>
+        <p class="meta-text"><span class="info-label">Authors:</span> <%= @book.authors.map(&:name).join(", ").presence || "Unknown" %></p>
+
+        <p class="meta-text">
+          <span class="info-label">Tags:</span>
+          <% if @book.tags.any? %>
+            <% @book.tags.each do |tag| %>
+              <%= link_to tag.name, books_path(tag: tag.name), class: "tag-pill" %>
+            <% end %>
+          <% else %>
+            None
+          <% end %>
+        </p>
+
+        <p class="price"><%= number_to_currency(@book.price) %></p>
+        <p class="book-description"><%= @book.description %></p>
+
+        <%= render "books/average_rating", book: @book %>
+      </div>
+    </div>
+  </article>
+
+  <section class="stack">
+    <div class="panel">
+      <h3 class="section-title">Reviews</h3>
+      <div id="reviews">
+        <%= render @reviews %>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3 class="section-title">Add Review</h3>
+
+      <% if user_signed_in? %>
+        <div id="review_form">
+          <%= render "reviews/form", book: @book, review: @review %>
+        </div>
+      <% else %>
+        <p class="meta-text">You must <%= link_to "sign in", new_user_session_path %> to leave a review.</p>
+      <% end %>
+    </div>
+  </section>
+</section>

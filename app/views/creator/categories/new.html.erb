@@ -1,0 +1,18 @@
+<% content_for :title, "Add Category" %>
+
+<section class="panel form-card form-card-sm">
+  <h2 class="section-title">Add a Category</h2>
+
+  <%= render "shared/form_errors", resource: @category %>
+
+  <%= form_with model: @category, url: author_categories_path, local: true, class: "form-grid" do |f| %>
+    <div class="field-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, required: true %>
+    </div>
+
+    <div>
+      <%= f.submit "Create Category", class: "btn" %>
+    </div>
+  <% end %>
+</section>

@@ -1,0 +1,23 @@
+<% return if total_pages <= 1 %>
+
+<nav class="pagination-nav" aria-label="Pagination">
+  <% window = 2 %>
+  <% start_page = [page - window, 1].max %>
+  <% end_page = [page + window, total_pages].min %>
+
+  <% if page > 1 %>
+    <%= link_to "Prev", url_for(params.permit!.to_h.merge(page: page - 1)), class: "pagination-link" %>
+  <% end %>
+
+  <% (start_page..end_page).each do |p| %>
+    <% if p == page %>
+      <span class="pagination-current"><%= p %></span>
+    <% else %>
+      <%= link_to p, url_for(params.permit!.to_h.merge(page: p)), class: "pagination-link" %>
+    <% end %>
+  <% end %>
+
+  <% if page < total_pages %>
+    <%= link_to "Next", url_for(params.permit!.to_h.merge(page: page + 1)), class: "pagination-link" %>
+  <% end %>
+</nav>

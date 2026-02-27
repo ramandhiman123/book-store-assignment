@@ -1,0 +1,44 @@
+<% content_for :title, "Add Book" %>
+
+<section class="panel form-card">
+  <h2 class="section-title">Add a New Book</h2>
+
+  <%= render "shared/form_errors", resource: @book %>
+
+  <%= form_with model: @book, url: author_books_path, local: true, multipart: true, class: "form-grid" do |f| %>
+    <div class="field-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, required: true %>
+    </div>
+
+    <div class="field-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, rows: 5 %>
+    </div>
+
+    <div class="field-group">
+      <%= f.label :price %>
+      <%= f.number_field :price, step: 0.01, min: 0, required: true %>
+    </div>
+
+    <div class="field-group">
+      <%= f.label :category_id, "Category" %>
+      <%= f.collection_select :category_id, @categories, :id, :name, { prompt: "Select category" }, { required: true } %>
+      <%= link_to "Add category", new_author_category_path, class: "helper-link" %>
+    </div>
+
+    <div class="field-group">
+      <%= f.label :tag_list, "Tags (comma-separated)" %>
+      <%= f.text_field :tag_list, placeholder: "fiction, bestseller" %>
+    </div>
+
+    <div class="field-group">
+      <%= f.label :cover_photo, "Cover photo" %>
+      <%= f.file_field :cover_photo, accept: "image/*" %>
+    </div>
+
+    <div>
+      <%= f.submit "Create Book", class: "btn" %>
+    </div>
+  <% end %>
+</section>
