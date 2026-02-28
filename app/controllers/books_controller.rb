@@ -27,6 +27,7 @@ class BooksController < ApplicationController
     @book.ensure_cover_photo!
     @reviews = @book.reviews.includes(:user).order(created_at: :desc)
     @review = Review.new
+    @can_reply = current_user&.author_profile.present? && @book.authors.exists?(id: current_user.author_profile.id)
   end
 
   private

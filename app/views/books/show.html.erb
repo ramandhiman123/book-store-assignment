@@ -41,7 +41,7 @@
     <div class="panel">
       <h3 class="section-title">Reviews</h3>
       <div id="reviews">
-        <%= render partial: "reviews/review", collection: @reviews, as: :review, locals: { book: @book } %>
+        <%= render partial: "reviews/review", collection: @reviews, as: :review, locals: { book: @book, can_reply: @can_reply } %>
       </div>
     </div>
 

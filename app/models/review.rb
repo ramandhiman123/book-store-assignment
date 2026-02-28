@@ -21,7 +21,7 @@ class Review < ApplicationRecord
       book,
       target: "reviews",
       partial: "reviews/review",
-      locals: { review: self, book: book }
+      locals: { review: self, book: book, can_reply: false }
     )
 
     broadcast_replace_to(

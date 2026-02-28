@@ -1,5 +1,5 @@
 <article class="review-item">
-  <% can_author_reply = user_signed_in? && current_user.author_profile.present? && book.authors.exists?(id: current_user.author_profile.id) %>
+  <% can_author_reply = local_assigns.fetch(:can_reply, false) %>
 
   <p class="review-meta">
     <span class="info-label"><%= review.user.email %></span>
