@@ -1,0 +1,20 @@
+<h1>New review for <%= @book.title %></h1>
+
+<p>
+  Hello <%= @author.name %>,
+</p>
+
+<p>
+  A new review has been submitted for your book <strong><%= @book.title %></strong>.
+</p>
+
+<p>
+  <strong>Reviewer:</strong> <%= @reviewer.email %><br>
+  <strong>Rating:</strong> <%= @review.rating %>/5
+</p>
+
+<p>
+  <strong>Review text:</strong><br>
+  <%= simple_format(@review.review) %>
+</p>
+

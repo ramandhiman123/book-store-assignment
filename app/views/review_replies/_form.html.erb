@@ -1,0 +1,14 @@
+<div id="<%= dom_id(review, :reply_form) %>">
+  <%= form_with model: [book, review, reply], url: book_review_replies_path(book, review), class: "form-grid" do |f| %>
+    <%= render "shared/form_errors", resource: reply %>
+
+    <div class="field-group">
+      <%= f.label :body, "Reply as author" %>
+      <%= f.text_area :body, rows: 3, required: true, placeholder: "Write a helpful reply..." %>
+    </div>
+
+    <div>
+      <%= f.submit "Post Reply", class: "btn" %>
+    </div>
+  <% end %>
+</div>

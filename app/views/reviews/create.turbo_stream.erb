@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "review_form" do %>
+  <%= render "reviews/form", book: @book, review: Review.new %>
+<% end %>

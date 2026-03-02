@@ -1,0 +1,7 @@
+<div class="review-item" style="margin-left:1rem; border-left:2px solid #d9e8d1; padding-left:0.8rem;">
+  <p class="review-meta">
+    <span class="info-label">Author reply: <%= reply.author.name %></span>
+    <span class="meta-text">• <%= reply.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+  </p>
+  <p class="review-body"><%= reply.body %></p>
+</div>

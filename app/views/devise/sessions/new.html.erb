@@ -1,0 +1,40 @@
+<section class="auth-wrap">
+  <div class="panel auth-card">
+    <h2>Sign in</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-grid" }) do |f| %>
+      <%= render "shared/form_errors", resource: resource %>
+
+      <% if flash[:alert].present? %>
+        <div class="flash alert"><%= flash[:alert] %></div>
+      <% end %>
+
+      <div class="field-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
+      </div>
+
+      <div class="field-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password", required: true %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field-group">
+          <label>
+            <%= f.check_box :remember_me %>
+            Remember me
+          </label>
+        </div>
+      <% end %>
+
+      <div>
+        <%= f.submit "Sign in", class: "btn" %>
+      </div>
+    <% end %>
+
+    <div class="devise-links">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</section>

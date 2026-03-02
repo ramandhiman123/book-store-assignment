@@ -1,0 +1,17 @@
+<%= form_with model: [book, review], class: "form-grid" do |f| %>
+  <%= render "shared/form_errors", resource: review %>
+
+  <div class="field-group">
+    <%= f.label :rating %>
+    <%= f.number_field :rating, in: 1..5 %>
+  </div>
+
+  <div class="field-group">
+    <%= f.label :review, "Review text" %>
+    <%= f.text_area :review, rows: 4 %>
+  </div>
+
+  <div>
+    <%= f.submit "Submit review", class: "btn" %>
+  </div>
+<% end %>

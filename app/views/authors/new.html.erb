@@ -1,0 +1,46 @@
+<% content_for :title, "Add Author" %>
+
+<section class="panel form-card">
+  <h2 class="section-title">Add Author</h2>
+
+  <%= render "shared/form_errors", resource: @author, title: "Author details errors" %>
+  <%= render "shared/form_errors", resource: @user, title: "Account errors" %>
+
+  <%= form_with scope: :author_registration, url: authors_path, local: true, class: "form-grid" do |f| %>
+    <div class="field-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, value: @author.name, required: true %>
+    </div>
+
+    <% if user_signed_in? %>
+      <div class="field-group">
+        <%= f.label :email %>
+        <p class="meta-text"><%= @user.email || "Not set" %></p>
+      </div>
+
+      <div class="field-group">
+        <%= f.label :password %>
+        <p class="meta-text">********</p>
+      </div>
+    <% else %>
+      <div class="field-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, value: @user.email, required: true, autocomplete: "email" %>
+      </div>
+    
+      <div class="field-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, required: true, minlength: 6, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, required: true, minlength: 6, autocomplete: "new-password" %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.submit "Create Author", class: "btn" %>
+    </div>
+  <% end %>
+</section>
